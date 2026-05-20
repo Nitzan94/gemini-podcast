@@ -38,10 +38,12 @@ You can read all three concerns in ~300 lines of Python. The point of the packag
 
 ## Install
 
+The package isn't on PyPI yet — install from source:
+
 ```sh
-uv pip install gemini-podcast
-# or
-pip install gemini-podcast
+git clone https://github.com/Nitzan94/gemini-podcast
+cd gemini-podcast
+uv pip install -e .            # or:  pip install -e .
 ```
 
 You also need **ffmpeg** on PATH:
@@ -64,6 +66,34 @@ export GEMINI_API_KEY=...
 uv run python examples/minimal.py
 # → writes out.mp3 (~1.5 MB, 60–90 sec depending on dialogue length)
 ```
+
+## Develop from source
+
+What you get after `git clone`:
+
+```
+gemini-podcast/
+├── src/gemini_podcast/   ← the importable package
+├── examples/             ← runnable scripts (Python)
+├── tests/                ← pytest suite
+├── playground/           ← React playground (TypeScript)
+└── pyproject.toml + package.json
+```
+
+Set up both halves:
+
+```sh
+# Python library + tests
+uv pip install -e ".[dev]"
+uv run pytest                            # 15 tests, no API calls
+
+# Browser playground (BYO API key, runs at localhost:3000)
+bun install
+bun run dev
+bun run typecheck
+```
+
+Both halves are independent — work on the Python pipeline without touching the playground and vice-versa. The playground re-implements the pipeline in TypeScript so it can run client-side; when you change a prompt or chunking constant in the Python code, mirror it into `playground/pipeline.ts`.
 
 ## More examples
 

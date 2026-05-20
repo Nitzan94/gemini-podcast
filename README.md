@@ -2,6 +2,8 @@
 
 Turn any source material into a **two-host audio podcast** using Gemini multi-speaker TTS. Same shape as Google's NotebookLM audio overviews — feed it text, get an MP3 with two named hosts riffing on it.
 
+**🎧 Try it in your browser:** [gemini-podcast.vercel.app](https://gemini-podcast.vercel.app) — bring your own Gemini API key, paste content, get a WAV. Key stays in your browser.
+
 ```python
 from gemini_podcast import PodcastConfig, Section, generate_podcast
 
@@ -154,6 +156,18 @@ uv run pytest
 ```
 
 The tests are pure-unit — chunking boundaries, dialogue parser edge cases, voice catalog consistency. They don't hit the Gemini API. For an end-to-end smoke test, run `examples/minimal.py` with a real `GEMINI_API_KEY` and listen to the output.
+
+## Browser playground
+
+A static SPA in `playground/` lets anyone try the pipeline without installing the Python package. They paste their own Gemini API key (stored only in their browser's localStorage), paste source material, pick a voice pair, and get a downloadable WAV in 30-90 seconds.
+
+```sh
+bun install
+bun run dev          # → http://localhost:3000
+bun run build        # static SPA in ./dist
+```
+
+The playground uses the `@google/genai` TypeScript SDK directly in the browser. Output is WAV (not MP3 — we avoid ffmpeg.wasm to keep the bundle small; the raw PCM Gemini emits just needs a header). Deployed to Vercel as a static site (see `vercel.json`).
 
 ## License
 

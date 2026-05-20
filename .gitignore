@@ -10,3 +10,5 @@ build/
 .env.local
 *.mp3
 *.wav
+node_modules/
+.vercel/

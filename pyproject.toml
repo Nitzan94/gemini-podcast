@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "gemini-podcast"
+version = "0.1.0"
+description = "Turn any source material into a 2-host audio podcast using Gemini multi-speaker TTS."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Nitzan Bar-Ness" }]
+requires-python = ">=3.11"
+keywords = ["gemini", "tts", "podcast", "audio", "google-genai", "notebooklm"]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+]
+dependencies = [
+    "google-genai>=0.4.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Nitzan94/gemini-podcast"
+Issues = "https://github.com/Nitzan94/gemini-podcast/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/gemini_podcast"]
